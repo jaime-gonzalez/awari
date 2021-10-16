@@ -1,3 +1,68 @@
+/*Schema das tabelas utilizadas neste exercício */
+
+CREATE TABLE "DM_Produtos" (
+	"product_id"	TEXT,
+	"product_category_name"	TEXT,
+	"product_name_lenght"	INTEGER,
+	"product_description_lenght"	INTEGER,
+	"product_photos_qty"	INTEGER,
+	"product_weight_g"	INTEGER,
+	"product_length_cm"	INTEGER,
+	"product_height_cm"	INTEGER,
+	"product_width_cm"	INTEGER,
+	PRIMARY KEY("product_id")
+);
+
+CREATE TABLE "DM_Clientes" (
+	"customer_id"	TEXT,
+	"customer_unique_id"	TEXT,
+	"customer_zip_code_prefix"	INTEGER,
+	"customer_city"	TEXT,
+	"customer_state"	TEXT,
+	PRIMARY KEY("customer_id")
+);
+
+CREATE TABLE "DM_Pedidos_Itens" (
+	"order_id"	TEXT,
+	"order_item_id"	INTEGER,
+	"product_id"	TEXT,
+	"seller_id"	TEXT,
+	"shipping_limit_date"	TEXT,
+	"price"	REAL,
+	"freight_value"	REAL
+);
+
+CREATE TABLE "FT_Pagamentos" (
+	"order_id"	TEXT,
+	"payment_sequential"	INTEGER,
+	"payment_type"	TEXT,
+	"payment_installments"	INTEGER,
+	"payment_value"	REAL
+);
+
+CREATE TABLE "FT_Pedidos" (
+	"order_id"	TEXT,
+	"customer_id"	TEXT,
+	"order_status"	TEXT,
+	"order_purchase_timestamp"	TEXT,
+	"order_approved_at"	TEXT,
+	"order_delivered_carrier_date"	TEXT,
+	"order_delivered_customer_date"	TEXT,
+	"order_estimated_delivery_date"	TEXT,
+	PRIMARY KEY("order_id")
+);
+
+CREATE TABLE "FT_Reviews" (
+	"review_id"	TEXT,
+	"order_id"	TEXT,
+	"review_score"	INTEGER,
+	"review_comment_title"	TEXT,
+	"review_comment_message"	TEXT,
+	"review_creation_date"	TEXT,
+	"review_answer_timestamp"	TEXT
+);
+
+
 /*1 - Crie uma query em SQL que retorne os valores distintos de cidade. Utilize a tabela “olist_customers_dataset” e a 
 função aliases para retornar o dado.*/
 
@@ -99,8 +164,6 @@ FROM DM_Produtos
 WHERE 
 product_height_cm >=20 AND 
 product_name_lenght BETWEEN 10 AND 200;
-
-
 
 /* Realizando o update no conjunto de registros com os dados arrumados*/
 UPDATE DM_Produtos 
