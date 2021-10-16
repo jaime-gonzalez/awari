@@ -1,5 +1,5 @@
 # Dados utilizados nestes exercícios
-<h3>Banco de dados utilizado:</h3> SQLite3
+<h3>Banco de dados utilizado:</h3> 
 
 <ul>
 <li>Banco de dados utilizado: SQLite</li>
