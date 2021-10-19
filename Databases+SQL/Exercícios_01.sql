@@ -142,13 +142,13 @@ SELECT order_status AS 'Status de Pedidos' FROM FT_Pedidos;
 igual ou anterior a 10 de Outubro de 2017. Utilize a tabela “olist_orders_dataset” e a função aliases para retornar o dado.*/
 
 /*Checando os registros com status "unavailable"*/
-SELECT * FROM FT_Pedidos WHERE order_status = 'unavailable' AND order_approved_at <='2017-10-10';
+SELECT * FROM FT_Pedidos WHERE order_status = 'unavailable' AND order_approved_at <='2017-10-10 23:59:59';
 
 /*Deletando os registros com status "unavailable"*/
-DELETE FROM FT_Pedidos WHERE order_status = 'unavailable' AND order_approved_at <='2017-10-10';
+DELETE FROM FT_Pedidos WHERE order_status = 'unavailable' AND order_approved_at <='2017-10-10 23:59:59';
 
 /*Checando novamente (irá retornar zero registros)*/
-SELECT * FROM FT_Pedidos WHERE order_status = 'unavailable' AND order_approved_at <='2017-10-10';
+SELECT * FROM FT_Pedidos WHERE order_status = 'unavailable' AND order_approved_at <='2017-10-10 23:59:59';
 
 /*10. [DESAFIO] Crie uma query em SQL que atualize os nomes de categorias de produto para uma versão de melhor leitura 
 (Ex: moveis_decoracao > Movéis e Decoração), para os registros que tem a altura maior ou igual a 20 e que o tamanho 
