@@ -91,7 +91,7 @@ SELECT
   price AS preco
 FROM DM_Pedidos_Itens
 WHERE price BETWEEN 50 AND 250
-AND date(shipping_limit_date)>=date("2018-02-08")
+AND date(shipping_limit_date)>date("2018-02-08")
 ORDER BY shipping_limit_date;
 
 
