@@ -31,3 +31,26 @@ GROUP BY fornecedor,pedido, dataPostagem, dataAprovacao, tempoAprovacaoCompra
 feito uma compra anterior a última (a partir da data de aprovação do pedido) que tenha sido maior ou igual o valor da última 
 compra. Crie uma querie que retorne os valores dos cupons para cada um dos clientes elegíveis.*/
 
+SELECT *,
+valorCompra *0.1 valorCupomDesconto
+FROM
+(
+    SELECT*,
+    LAG(valorCompra) OVER (PARTITION BY cliente ORDER BY dataUltimaCompra) valorUltimaCompra,
+    ROW_NUMBER() OVER(PARTITION BY cliente ORDER BY dataUltimaCompra DESC) ordenacaoPedidos
+    FROM
+    (
+        SELECT 
+            Clientes.customer_unique_id AS cliente,
+            Pedidos.order_id AS pedido,
+            Pedidos.order_approved_at AS dataUltimaCompra,
+            SUM(Pagamentos.payment_value) AS valorCompra,
+            COUNT(Pedidos.order_id) OVER (PARTITION BY Clientes.customer_unique_id) qtdePedidos
+        FROM `jgonzalezds01.olist.FT_Pagamentos` AS Pagamentos
+        INNER JOIN `jgonzalezds01.olist.FT_Pedidos` AS Pedidos ON Pagamentos.order_id=Pedidos.order_id
+        INNER JOIN `jgonzalezds01.olist.DM_Clientes` AS Clientes ON Pedidos.customer_id=Clientes.customer_id
+        WHERE Pedidos.order_approved_at IS NOT NULL
+        GROUP BY cliente, pedido, dataUltimaCompra
+        ORDER BY  cliente, dataUltimaCompra
+    ) WHERE qtdePedidos>1
+) WHERE ordenacaoPedidos = 1 AND valorUltimaCompra >= valorCompra
